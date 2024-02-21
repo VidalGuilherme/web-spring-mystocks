@@ -7,9 +7,11 @@ import br.com.vidaldev.mystocks.domain.apiconsumer.dtos.QuoteResultDto;
 import br.com.vidaldev.mystocks.domain.apiconsumer.dtos.QuoteResultItemDto;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -35,6 +37,7 @@ public class BrapiApiConsumer implements IApiConsumer {
         String json = getData(BASE_URL+"/quote/"+ticker);
         try {
             QuoteResultDto resultDto = mapper.readValue(json, QuoteResultDto.class);
+
             return resultDto.results().getFirst();
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
@@ -80,6 +83,19 @@ public class BrapiApiConsumer implements IApiConsumer {
         HttpResponse<String> response = null;
         try {
             response = client.send(request, HttpResponse.BodyHandlers.ofString());
+
+            if(response.statusCode() == HttpStatus.NOT_FOUND.value()){
+                throw new EntityNotFoundException("Api consumer not found exception");
+            }
+
+            if(response.statusCode() == HttpStatus.BAD_REQUEST.value()){
+                throw new EntityNotFoundException("Api consumer bad request");
+            }
+
+            if(response.statusCode() != HttpStatus.OK.value()){
+                throw new RuntimeException("Api consumer error");
+            }
+
         } catch (IOException | InterruptedException e){
             throw new RuntimeException(e);
         }
