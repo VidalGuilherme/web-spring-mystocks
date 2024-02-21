@@ -4,6 +4,7 @@ import br.com.vidaldev.mystocks.infra.security.filters.SecurityFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -20,6 +21,7 @@ public class SecurityConfiguration {
 
     public static final String[] AUTHENTICATION_NOT_REQUIRED = {
             "/auth",
+            "/v3/api-docs/**", "/swagger-ui.html", "/swagger-ui/**"
     };
 
     @Autowired
@@ -30,6 +32,7 @@ public class SecurityConfiguration {
         return http.csrf(csrf -> csrf.disable())
                 .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(req -> {
+                    req.requestMatchers(HttpMethod.POST, AUTHENTICATION_NOT_REQUIRED).permitAll();
                     req.requestMatchers(AUTHENTICATION_NOT_REQUIRED).permitAll();
                     req.anyRequest().authenticated();
                 })
@@ -39,11 +42,12 @@ public class SecurityConfiguration {
 
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
-        return  configuration.getAuthenticationManager();
+        return configuration.getAuthenticationManager();
     }
 
     @Bean
     public PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
     }
+
 }
