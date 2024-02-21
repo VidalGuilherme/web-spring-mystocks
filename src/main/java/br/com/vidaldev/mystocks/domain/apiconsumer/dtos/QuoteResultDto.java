@@ -1,4 +1,4 @@
-package br.com.vidaldev.mystocks.modules.apiconsumer.dtos;
+package br.com.vidaldev.mystocks.domain.apiconsumer.dtos;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 

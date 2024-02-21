@@ -1,10 +1,10 @@
-package br.com.vidaldev.mystocks.modules.apiconsumer.services;
+package br.com.vidaldev.mystocks.domain.apiconsumer.services;
 
-import br.com.vidaldev.mystocks.modules.apiconsumer.dtos.AvailableResultDto;
-import br.com.vidaldev.mystocks.modules.apiconsumer.dtos.QuoteListResultDto;
-import br.com.vidaldev.mystocks.modules.apiconsumer.dtos.QuoteResultDto;
-import br.com.vidaldev.mystocks.modules.apiconsumer.dtos.QuoteResultItemDto;
-import br.com.vidaldev.mystocks.modules.apiconsumer.interfaces.IApiConsumer;
+import br.com.vidaldev.mystocks.domain.apiconsumer.interfaces.IApiConsumer;
+import br.com.vidaldev.mystocks.domain.apiconsumer.dtos.AvailableResultDto;
+import br.com.vidaldev.mystocks.domain.apiconsumer.dtos.QuoteListResultDto;
+import br.com.vidaldev.mystocks.domain.apiconsumer.dtos.QuoteResultDto;
+import br.com.vidaldev.mystocks.domain.apiconsumer.dtos.QuoteResultItemDto;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;

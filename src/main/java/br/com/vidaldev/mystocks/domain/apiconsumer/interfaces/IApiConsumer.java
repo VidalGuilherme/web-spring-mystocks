@@ -1,9 +1,8 @@
-package br.com.vidaldev.mystocks.modules.apiconsumer.interfaces;
+package br.com.vidaldev.mystocks.domain.apiconsumer.interfaces;
 
-import br.com.vidaldev.mystocks.modules.apiconsumer.dtos.AvailableResultDto;
-import br.com.vidaldev.mystocks.modules.apiconsumer.dtos.QuoteListResultDto;
-import br.com.vidaldev.mystocks.modules.apiconsumer.dtos.QuoteResultItemDto;
-import com.fasterxml.jackson.core.JsonProcessingException;
+import br.com.vidaldev.mystocks.domain.apiconsumer.dtos.AvailableResultDto;
+import br.com.vidaldev.mystocks.domain.apiconsumer.dtos.QuoteListResultDto;
+import br.com.vidaldev.mystocks.domain.apiconsumer.dtos.QuoteResultItemDto;
 
 public interface IApiConsumer {
     QuoteResultItemDto getStockByTicker(String ticker);
